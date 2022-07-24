@@ -462,3 +462,361 @@ f.write()
 with open("foo.txt", "w") as f:
   f.write("Life is too short, you need python")
 ```
+
+```python
+# Immutable(변하지 않는 자료형 : 정수, 실수, 문자열, 튜플)
+a = 1
+def vartest(a):
+  a = a + 1
+vartest(a)
+print(a)
+
+# Mutable(변할 수 있는 자료형 : 리스트, 딕셔너리, 집합)
+b = [1, 2, 3]
+def vartest2(b):
+  b = b.append(4)
+vartest2(b)
+print(b)
+```
+
+## 📌 5. 파이썬 날개 달기
+### 5-1. 클래스
+```python
+# 클래스란?
+클래스: 반복되는 변수 & 메서드(함수)를 미리 정해놓은 틀(설계도), 파이썬 프로그래밍의 핵심
+클래스는 도대체 왜 필요한가? 
+-> 같은 내역의 함수를 여러번 사용하고자 할 때 유용!
+
+# 클래스를 쓰는 방법!
+# 1. Class를 입력하고 
+# 2. 대무낮로 시작하는 클래스의 이름을 작성 
+# 3. 안에 들어갈 함수와 변수 설정
+
+class FourCal:
+  def __init__(self, first, second): # init은 생성자기 때문에 1번만 사용하면 됌
+    self.first = first
+    self.second = second
+  def setdata(self, first, second):
+    self.first = first
+    self.second = second
+  def add(self):
+    result = self.first + self.second
+    return result
+
+a = FourCal(1, 2)
+
+# 클래스의 상속
+class FourCal: # 부모 클래스
+  def __init__(self, first, second): 
+    self.first = first
+    self.second = second
+  def setdata(self, first, second):
+    self.first = first
+    self.second = second
+  def add(self):
+    result = self.first + self.second
+    return result
+  def mul(self):
+    result = self.first * self.second
+    return result
+  def sub(self):
+    result = self.first - self.second
+    return result
+  def div(self):
+    result = self.first / self.second
+    return result
+
+class SafeFourCal(FourCal): # 자식 클래스
+  def div(self): 
+    if self.second == 0:
+      return 0
+    else:
+      return self.first / self.second
+a = SafeFourCal(4, 0)
+print(a.div())
+2.0
+# 메서드 오버라이딩 
+# : 부모 클래스와 자식 클래스에 같은 메서드가 있을 때 자식 클래스에 있는 메서드로 작동됌
+```
+
+### 5-2. 모듈
+```python
+# 모듈이란?
+모듈 : 미리 만들어놓은 파이썬 파일(함수, 변수, 클래스 등)
+import mod1 # mod1.py 파일 생성 후 연결하여 사용 ex) 부트스트랩(css라이브러리)
+print(mod1.add(1, 2))
+3
+
+from mod1 import add # mod1 파일에서 add만 가져오겠다 -> mod1 전부를 가져올 때보다 속도 up!
+
+# import하려는 파일이 같은 폴더에 없을 경우 추가적으로 경로를 적어줘야 한다.
+import sys
+sys.path.append("C:\\jocoding\\subFolder")
+import mod1
+print(mod1.add(3,4))
+```
+
+### 5-3. 패키지
+```python
+# 패키지란?
+패키지: 모듈 여러 개를 모아놓은 것 # 라이브러리와 비슷
+game/
+  __init__.py # 패키지 관련 설정하는 곳
+  sound/
+    __init__.py
+    echo.py
+  graphic/
+    __init__.py
+    render.py
+
+# 패키지 안의 함수 실행하기
+import game.sound.echo
+game.sound.echo.echo_test() # 정석적인 루트 접근 후 echo_test() 사용하겠다
+
+from game.sound import echo
+echo.echo_test() # game.sound 파일 내 echo만 연결하여 사용하겠다
+
+from game.sound import *
+echo.echo_test() # game.sound 파일 내 모든 내역을 불러와라
+
+# Relative 패키지
+from ..sound.echo import echo_test
+def render_test():
+  print("render")
+  echo_test()
+```
+
+### 5-4. 예외처리
+```python
+# 예외처리란?
+예외처리: 오류가 발생했을 때 어떻게 할지 정하는 것
+try:
+  # 오류가 발생할 수 있는 구문
+except Exception as e:
+  # 오류 발생
+else:
+  # 오류 발생하지 않음
+finally:
+  # 무조건 마지막에 실행  
+```
+
+### 5-5. 내장함수
+```python
+# 내장함수란?
+내장함수: 파이썬에서 기본적으로 포함하고 있는 함수
+```
+| 함수명 | 기능 |
+| ---- | ---- |
+| print() | 확인, 출력하기 |
+| type() | 변수의 자료형 확인하기 |
+| abs() | 변수의 절대값 확인하기 |
+| all() | 포함하고 있는 변수가 모두 참인지 검사하기 |
+| any() | 하나라도 참이 있는지 검사하기 |
+| chr() | ASCII(아스키 코드) 코드를 입력 받아 문자 출력하기 |
+| dir() | 자체적으로 가지고 있는 변수나 함수를 보여준다 |
+| divmod() | 몫과 나머지를 튜플 형태로 돌려준다 |
+| enumerate() | 리스트를 딕셔너리처럼 활용할 수 있다 |
+| eval() | 실행 후 결과값을 돌려준다 |
+| filter() | 함수를 통과하여 참인 것만 돌려준다 |
+| id() | 변수의 주소 값 확인하기 |
+| input() | 사용자가 입력한 값을 받는다 |
+| int() | 변수를 10진수의 정수 형태로 변환한다 |
+| len() | 변수의 길이를 확인한다 |
+| list() | 변수를 리스트로 변환한다 |
+| map() | 각 요소가 수행한 결과를 돌려준다 |
+| max() | 최대값을 확인한다 |
+| min() | 최소값을 확인한다 | 
+| pow() | 제곱한 결과값을 반환한다 |
+| range() | 범위를 설정한다 |
+| round() | 변수를 반올림한다 |
+| sorted() | 문자는 abc/가나다 순으로, 숫자는 작은 수부터 정렬한다 |
+| str() | 변수를 문자열로 반환한다 |
+| tuple() | 변수를 튜플로 변환한다 |
+| zip() | 자료형을 묶어준다 |
+```python 
+# ASCII(아스키코드)= 0 ~ 127사이의 숫자를 각 문자에 대응
+```
+
+### 5-6. 외장함수
+```python
+# 외장함수란?
+외장함수: 라이브러리 함수, import 해서 쓰는 것
+- sys.argv
+- pickle
+- time
+- time.sleep
+- random
+- webbrowser
+```
+
+## 📌 6. 파이썬 프로그래밍, 어떻게 시작해야 할까?
+```python
+Point! 프로그램을 만들려면 가장 먼저 '입력'과 '출력'을 고려해서 단계적으로 작성해야 한다!
+
+# 구구단 만들기
+def GuGu(n):
+  result = []
+  i = 1
+  while < 10:
+    result.append(n*i)
+  return result
+print(GuGu(2))
+[2, 4, 6, 8, 10, 12, 14, 16, 18]
+
+# 1000 이하의 자연수 중 3과 5의 배수 합하기
+result = 0
+for n in range(1,1000):
+  if n % 3 == 0 or n % 5 == 0:
+    result += n
+print(result)
+233168
+
+# 게시판 페이징하기
+def getTotalPage(m, n): # m : 게시물의 총 건수, n: 페이지당 보여줄 게시물 수
+  if m % n == 0:
+    return m // n
+  else:
+    return m // n + 1
+print(getTotalPage)
+
+# 간단한 메모장 만들기
+import sys
+option = sys.argv[1]
+
+if option == '-a':
+  memo = sys.argv[2]
+  f = open('memo.txt','a')
+  f.write(memo)
+  f.write('\n')
+  f.close()
+elif option == '-v':
+  f = open('memo.txt')
+  memo = f.read()
+  f.close()
+  print(memo)
+
+# 탭을 4개의 공백으로 바꾸기
+import sys
+src = sys.argv[1]
+dst = sys.argv[2]
+
+f = open(src)
+tab_content = f.read()
+f.close()
+
+space_conteent = tab_content.replace("\t"," "*4)
+print(space_content)
+
+f = open(dst, 'w')
+f.write(space_content)
+f.close()
+
+# 하위 디렉터리 검색하기
+import os
+def search(dirname):
+  try:
+  filenames = os.listdir(dirname)
+  for filename in filenames:
+    full_filename = os.path.join(dirname, filename)
+    if os.path.isdir(full_filename):
+      search(full_filename)
+    else:
+      ext = os.path.splitxt(full_filename)[-1]
+      if ext == ".py":
+        print(full_filename)
+  except PermissionError:
+    pass
+
+search("C:/")
+```
+
+## 📌 7. 정규 표현식
+### 7-1. 정규표현식 알아보기
+```python
+# 정규표현식이란?
+정규표현식: 복잡한 문자열을 처리할 때 사용하는 기법, 모든 언어 공통
+
+  정규표현식은 문자열에 관련된 복잡한 문제를 해결해야 될 때,
+  정규 표현식을 사용하게 되면 짧고 간결하게 문제를 해결할 수 있게 해준다.
+
+# 문자 클래스 []
+[abc]
+■ [] 사이의 문자들과 매치
+■ "a"는 정규식과 일치하는 문자인 "a"가 있으므로 매치
+■ "before"는 정규식과 일치하는 문자인 "b"가 있으므로 매치
+■ "dude"는 정규식과 일치하는 문자인 a, b, c 중 어느 하나도 포함하고 있지 않으므로 매치되지 않음
+■ 하이픈을 사용하여 From-To로 표현 가능
+  ■ Ex) [a-c] = [abc], [0-5] = [012345]
+
+# Dot(.)
+a.b
+■ 줄바꿈(\n)을 제외한 모든 문자와 매치
+■ "aab"는 가운데 문자 "a"가 모든 문자를 의미하는 `.`와 일치하므로 정규식과 매치
+■ "a0b"는 가운데 문자 "0"가 모든 문자를 의미하는 `.`와 일치하므로 정규식과 매치
+■ "abc"는 "a"문자와 "b"문자 사이에 어떤 문자라도 하나는 있어야 하는 이 정규식과 
+  일치하지 않으므로 매치되지 않는다.
+
+# 반복(*)
+ca*t
+■ "ct"는 "a"가 0번 반복되어 매치
+■ "cat"는 "a"가 0번 이상 반복되어 매치(1번 반복)
+■ "caaat"는 "a"가 0번 이상 반복되어 매치(3번 반복)
+
+# 반복(+)
+ca+t
+■ "ct"는 "a"가 0번 반복되어 매치되지 않음
+■ "cat"는 "a"가 0번 이상 반복되어 매치(1번 반복)
+■ "caaat"는 "a"가 0번 이상 반복되어 매치(3번 반복)
+
+# 반복({m, n},?)
+ca{2}t
+■ "cat"는 "a"가 1번만 반복되어 매치되지 않음
+■ "caat"는 "a"가 2번 반복되어 매치
+
+ca{2,5}t
+■ "cat"는 "a"가 1번만 반복되어 매치되지 않음
+■ "caat"는 "a"가 2번 반복되어 매치
+■ "caaaaat"는 "a"가 5번 반복되어 매치
+
+ab?c # ? == {0,1}와 같은 표현
+■ "abc"는 "b"가 1번 사용되어 매치
+■ "ac"는 "b"가 0번 사용되어 매치
+```
+### 7-2. 정규표현식 시작하기
+```python
+# 파이썬에서 정규 표현식을 지원하는 re모듈
+import re
+p = re.compile('ab*')
+
+# match
+import re
+p = re.compile('[a-z]+')
+m = p.match('3 python')
+print(m)
+
+> 매치 성공 시 : <re.Match object; span=(0, 6), match='python'>
+> 매치 실패 시 : None
+
+# search
+import re
+p = re.compile('[a-z]+')
+m = p.search('3 python')
+print(m)
+
+> 서치 성공 시 : <re.Match object; span=(2, 8), match='python'>
+> 서치 실패 시 : None
+
+# findall
+import re
+p = re.compile('[a-z]+')
+m = p.findall('life is too short')
+print(m)
+> ['life', 'is', 'too', 'short']
+
+# finditer
+import re
+p = re.compile('[a-z]+')
+m = p.finditer('life is too short')
+print(m)
+> <callable_iterator object at 0x025f50b8>
+```
